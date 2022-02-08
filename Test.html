@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page</title>
+    <script type="text/javascript" src="./AjaxService.js"></script>
+
+    <style>
+        .get-data {
+            text-align: left;
+            background-color: blanchedalmond;
+            margin: 0 auto;
+            padding: 50px 50px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    
+</body>
+<script>
+    const getData = document.querySelector("#get_service");
+    const getURL = "http://localhost:3000/employees/1";
+    makeServiceCall("GET", getURL, true)
+        .then(responseText => {
+            getData.textContent = "Get Employees Data: " + responseText;
+        })
+        .catch(error => {
+            getData.textContent = "GET Error Status: " + JSON.stringify(error);
+        });
+
+    const deleteData = document.querySelector("#delete_service");
+    const deleteURL = "http://localhost:3000/employees/3";
+    makeServiceCall("DELETE", deleteURL, true)
+        .then(responseText => {
+            deleteData.textContent = "Remove Employee Data: " + responseText;
+        })
+        .catch(error => {
+            deleteData.textContent = "Remove Error Status: " + JSON.stringify(error);
+        });
+
+    const employeeData =
+    {
+        name: 'Ashok',
+        gender: 'Male',
+        departMent: [
+            'HR'
+        ],
+        salary: '30000',
+        startDate: '1 Jan 2020',
+        notes: '',
+        profileUrl: '../assets/profile-images/Ellipse 1.png'
+    };
+
+    const postData = document.querySelector("#post_service");
+    const postURL = "http://localhost:3000/employees/";
+    makeServiceCall("POST", postURL, true, employeeData)
+        .then(responseText => {
+            postData.textContent = "New Employee Data: " + responseText;
+        })
+        .catch(error => {
+            postData.textContent = "Post Error Status: " + JSON.stringify(error);
+        });
+</script>
+
+</html>
